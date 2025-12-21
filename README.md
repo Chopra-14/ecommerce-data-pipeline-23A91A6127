@@ -46,6 +46,6 @@ cd ecommerce-data-pipeline
 
 ## Setup Instructions
 ```bash
-git clone <repository-url>
+git clone https://github.com/Chopra-14/ecommerce-data-pipeline-23A91A6127.git
 pip install -r requirements.txt
 bash setup.sh
