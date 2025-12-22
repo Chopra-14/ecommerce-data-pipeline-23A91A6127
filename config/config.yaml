@@ -3,10 +3,11 @@
 # =========================
 database:
   host: localhost
-  port: 5432         
+  port: 5432
   user: admin
   password: password
-  name: ecommerce_db
+  dbname: ecommerce_db
+
 
 
 # =========================

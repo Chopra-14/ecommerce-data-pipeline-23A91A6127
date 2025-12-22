@@ -1,7 +1,8 @@
 import json
 from pathlib import Path
 
-REPORT = Path("data/processed/pipeline_execution_report.json")
+REPORT = Path("data/processed/data_quality_report.json")
+
 
 
 def test_quality_report_exists():
