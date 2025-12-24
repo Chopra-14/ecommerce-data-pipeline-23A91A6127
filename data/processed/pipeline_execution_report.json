@@ -1,48 +1,48 @@
 {
-    "pipeline_execution_id": "PIPE_20251221154304",
-    "start_time": "2025-12-21T15:43:04.128392",
-    "end_time": "2025-12-21T15:43:28.012275",
-    "total_duration_seconds": 23.88,
+    "pipeline_execution_id": "PIPE_20251223042107",
+    "start_time": "2025-12-23T04:21:07.761521",
+    "end_time": "2025-12-23T04:21:41.742755",
+    "total_duration_seconds": 33.98,
     "status": "success",
     "steps_executed": {
         "data_generation": {
             "status": "success",
-            "duration_seconds": 11.88,
+            "duration_seconds": 16.12,
             "records_processed": null,
             "error_message": null,
             "retry_attempts": 0
         },
         "data_ingestion": {
             "status": "success",
-            "duration_seconds": 6.53,
+            "duration_seconds": 12.06,
             "records_processed": null,
             "error_message": null,
             "retry_attempts": 0
         },
         "data_quality_checks": {
             "status": "success",
-            "duration_seconds": 0.07,
+            "duration_seconds": 0.0,
             "records_processed": null,
             "error_message": null,
             "retry_attempts": 0
         },
         "staging_to_production": {
             "status": "success",
-            "duration_seconds": 3.92,
+            "duration_seconds": 4.04,
             "records_processed": null,
             "error_message": null,
             "retry_attempts": 0
         },
         "warehouse_load": {
             "status": "success",
-            "duration_seconds": 1.4,
+            "duration_seconds": 1.68,
             "records_processed": null,
             "error_message": null,
             "retry_attempts": 0
         },
         "analytics_generation": {
             "status": "success",
-            "duration_seconds": 0.08,
+            "duration_seconds": 0.09,
             "records_processed": null,
             "error_message": null,
             "retry_attempts": 0
