@@ -3,15 +3,15 @@
 ## 👩‍🎓 Student Information
 - **Name:** Konakalla Chopra Lakshmi Sathvika  
 - **Roll Number:** 23A91A6127  
-- **Email:** your-email@example.com  
-- **Submission Date:** 26-12-2025  
+- **Email:** y23a91a6127@aec.edu.in 
+- **Submission Date:** 27-12-2025  
 
 ---
 
 ## 🔗 GitHub Repository
 - **Repository URL:** https://github.com/Chopra-14/ecommerce-data-pipeline-23A91A6127  
 - **Repository Status:** Public  
-- **Commit Count:** 30+ commits  
+- **Commit Count:** 28 commits  
 
 ---
 
