@@ -3,7 +3,7 @@
 ## 👩‍🎓 Student Information
 - **Name:** Konakalla Chopra Lakshmi Sathvika  
 - **Roll Number:** 23A91A6127  
-- **Email:** y23a91a6127@aec.edu.in 
+- **Email:** 23a91a6127@aec.edu.in 
 - **Submission Date:** 27-12-2025  
 
 ---
