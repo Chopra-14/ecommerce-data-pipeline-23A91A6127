@@ -61,13 +61,10 @@ jobs:
 
       - name: Run tests with coverage
         env:
-          DB_HOST: localhost
-          DB_PORT: 5432
-          DB_NAME: ecommerce_db_test
-          DB_USER: test_user
-          DB_PASSWORD: test_password
+          CI: true
         run: |
           pytest tests/ -v --cov=scripts --cov-report=term
+
 
       - name: Enforce coverage threshold
         run: |

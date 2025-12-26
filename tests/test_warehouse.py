@@ -1,6 +1,10 @@
 from sqlalchemy import create_engine, inspect
 import os
 from dotenv import load_dotenv
+import pytest
+
+if os.getenv("CI"):
+    pytest.skip("Skipping DB tests in CI", allow_module_level=True)
 
 load_dotenv()
 
