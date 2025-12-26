@@ -162,6 +162,8 @@ Geographic Insight: Top 5 states contribute majority of revenue
 
 Payment Preference: UPI and Credit Card dominate transactions
 
+• High-value (Premium) products contribute a disproportionately higher share of total profit despite lower sales volume, indicating strong margins and pricing power.
+
 ⚠️ Challenges & Solutions
 Challenge	Solution
 Data quality issues	Implemented validation checks
