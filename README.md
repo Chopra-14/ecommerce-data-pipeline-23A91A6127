@@ -5,7 +5,6 @@
 **Submission Date:** 27-12-2025  
 
 ---
-![CI Status](https://github.com/Chopra-14/ecommerce-data-pipeline-23A91A6127/actions/workflows/ci.yml/badge.svg)
 
 ## 📌 Project Architecture
 
