@@ -3,13 +3,27 @@ venv/
 
 # Environment variables
 .env
+.env.*
 
 # Logs
 logs/
+*.log
 
 # Python cache
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
+
+# Test & coverage artifacts
+.pytest_cache/
+.coverage
+htmlcov/
 
 # OS files
 .DS_Store
+Thumbs.db
+
+# IDE / Editor settings
+.vscode/
+.idea/

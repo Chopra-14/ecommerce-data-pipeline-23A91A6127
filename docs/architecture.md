@@ -5,7 +5,16 @@
 This document describes the architecture of the e-commerce analytics platform designed for scalable data processing and business intelligence.
 
 ---
+## Data Flow Diagram
 
+Raw CSV Files  
+→ Staging Schema (PostgreSQL)  
+→ Production Schema (Validated & Normalized)  
+→ Warehouse Schema (Star Schema)  
+→ Aggregated Analytics Tables  
+→ Power BI / Tableau Dashboards
+
+---
 ## System Components
 
 ### 1. Data Generation Layer
@@ -73,10 +82,19 @@ This document describes the architecture of the e-commerce analytics platform de
 - Power BI Desktop
 
 ---
+## Design Decisions & Rationale
 
-## Deployment Architecture
+- **PostgreSQL** was chosen for reliability, ACID compliance, and strong analytical SQL support.
+- **Batch ETL** was selected over streaming to simplify processing and ensure deterministic outputs.
+- **3NF in Production Schema** ensures data integrity and avoids redundancy.
+- **Star Schema in Warehouse** improves query performance and simplifies BI reporting.
+- **SCD Type 2** enables historical tracking of dimension changes for accurate time-based analysis.
 
-- Dockerized PostgreSQL
-- Python services run locally
-- Config-driven execution
-- Portable & scalable design
+---
+## Design Decisions & Rationale
+
+- **PostgreSQL** was chosen for reliability, ACID compliance, and strong analytical SQL support.
+- **Batch ETL** was selected over streaming to simplify processing and ensure deterministic outputs.
+- **3NF in Production Schema** ensures data integrity and avoids redundancy.
+- **Star Schema in Warehouse** improves query performance and simplifies BI reporting.
+- **SCD Type 2** enables historical tracking of dimension changes for accurate time-based analysis.

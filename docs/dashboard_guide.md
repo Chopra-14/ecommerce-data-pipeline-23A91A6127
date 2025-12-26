@@ -19,6 +19,11 @@
 - Average Order Value
 - Profit Margin
 
+**Metric Definitions:**
+- Total Revenue = Sum of line_total from fact_sales
+- Average Order Value = Total Revenue / Total Transactions
+- Profit Margin = (Total Profit / Total Revenue) × 100
+
 **Visuals:**
 - Monthly revenue trend
 - Top categories
@@ -65,6 +70,15 @@
 
 ---
 
+## How to Use the Dashboard
+
+- Selecting a category filters all charts across pages
+- Date slicer updates trends dynamically
+- Clicking a bar or map region highlights related visuals
+- Scatter plots help identify high-price vs high-profit products
+
+---
+
 ## Refreshing Data
 1. Run ETL pipeline
 2. Open Power BI file
@@ -77,3 +91,4 @@
 - Focus on high-margin categories
 - Target premium customers
 - Optimize inventory for peak seasons
+- Premium-priced products show higher profitability despite lower sales volume
