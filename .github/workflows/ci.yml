@@ -60,17 +60,18 @@ jobs:
           psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS staging;"
           psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS production;"
           psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS warehouse;"
-
       - name: Run tests with coverage
-        env:
-          DB_HOST: localhost
-          DB_PORT: 5432
-          DB_NAME: ecommerce_db_test
-          DB_USER: test_user
-          DB_PASSWORD: test_password
-          PGPASSWORD: test_password
-        run: |
-          pytest tests/ -v --cov=scripts --cov-report=term
+  env:
+    DB_HOST: localhost
+    DB_PORT: 5432
+    DB_NAME: ecommerce_db_test
+    DB_USER: test_user
+    DB_PASSWORD: test_password
+    PGPASSWORD: test_password
+    PYTHONPATH: ${{ github.workspace }}
+  run: |
+    pytest tests/ -v --cov=scripts --cov-report=term
+
 
       - name: Enforce coverage threshold
         run: |
