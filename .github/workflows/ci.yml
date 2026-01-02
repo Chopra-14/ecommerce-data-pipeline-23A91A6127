@@ -26,21 +26,31 @@ jobs:
           --health-retries 5
 
     steps:
-      - name: Checkout code
+      # 1️⃣ Checkout Code
+      - name: Checkout repository
         uses: actions/checkout@v3
 
+      # 2️⃣ Setup Python with caching
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.9"
           cache: "pip"
 
+      # 3️⃣ Install Dependencies
       - name: Install dependencies
-  run: |
-    pip install -r requirements.txt
-    pip install -e .
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8 pytest pytest-cov
 
+      # 4️⃣ Code Quality Checks
+      - name: Run lint checks
+        run: |
+          flake8 scripts --count --select=E9,F63,F7,F82 --show-source --statistics
+          flake8 scripts --count --exit-zero --max-line-length=120 --statistics
 
+      # 5️⃣ Wait for Database
       - name: Wait for PostgreSQL
         run: |
           until pg_isready -h localhost -p 5432; do
@@ -48,31 +58,27 @@ jobs:
             sleep 2
           done
 
+      # 6️⃣ Create Schemas
       - name: Create database schemas
+        env:
+          PGPASSWORD: test_password
+        run: |
+          psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS staging;"
+          psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS production;"
+          psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS warehouse;"
+
+      # 7️⃣ Run Unit Tests with Coverage
+      - name: Run tests
         env:
           DB_HOST: localhost
           DB_PORT: 5432
           DB_NAME: ecommerce_db_test
           DB_USER: test_user
           DB_PASSWORD: test_password
-          PGPASSWORD: test_password
         run: |
-          psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS staging;"
-          psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS production;"
-          psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS warehouse;"
-      - name: Run tests with coverage
-  env:
-    DB_HOST: localhost
-    DB_PORT: 5432
-    DB_NAME: ecommerce_db_test
-    DB_USER: test_user
-    DB_PASSWORD: test_password
-    PGPASSWORD: test_password
-    PYTHONPATH: ${{ github.workspace }}
-  run: |
-    pytest tests/ -v --cov=scripts --cov-report=term
+          pytest tests/ -v --cov=scripts --cov-report=term
 
-
-    - name: Enforce coverage threshold
+      # 8️⃣ Enforce Coverage Threshold
+      - name: Enforce coverage threshold
         run: |
           coverage report --fail-under=70

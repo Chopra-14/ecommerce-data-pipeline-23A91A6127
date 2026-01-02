@@ -6,6 +6,10 @@
 
 ---
 
+![Data Pipeline CI](https://github.com/Chopra-14/ecommerce-data-pipeline-23A91A6127/actions/workflows/ci.yml/badge.svg)
+
+---
+
 ## 📌 Project Architecture
 
 This project implements a complete **end-to-end ETL pipeline** for an e-commerce analytics platform.
