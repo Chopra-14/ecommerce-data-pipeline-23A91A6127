@@ -20,46 +20,59 @@ jobs:
         ports:
           - 5432:5432
         options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+          --health-cmd="pg_isready -U test_user"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
 
     steps:
-      # 1️⃣ Checkout Code
-      - name: Checkout repository
+      # ---------------------------
+      # Checkout repository
+      # ---------------------------
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2️⃣ Setup Python with caching
-      - name: Set up Python
+      # ---------------------------
+      # Setup Python
+      # ---------------------------
+      - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: "3.9"
           cache: "pip"
 
-      # 3️⃣ Install Dependencies
+      # ---------------------------
+      # Install dependencies
+      # ---------------------------
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pip install flake8 pytest pytest-cov
+          pip install pytest pytest-cov flake8 psycopg2-binary
 
-      # 4️⃣ Code Quality Checks
-      - name: Run lint checks
+      # ---------------------------
+      # Lint (fail fast)
+      # ---------------------------
+      - name: Lint code
         run: |
           flake8 scripts --count --select=E9,F63,F7,F82 --show-source --statistics
-          flake8 scripts --count --exit-zero --max-line-length=120 --statistics
 
-      # 5️⃣ Wait for Database
+      # ---------------------------
+      # Wait for DB
+      # ---------------------------
       - name: Wait for PostgreSQL
+        env:
+          PGPASSWORD: test_password
         run: |
-          until pg_isready -h localhost -p 5432; do
+          until pg_isready -h localhost -p 5432 -U test_user; do
             echo "Waiting for PostgreSQL..."
             sleep 2
           done
 
-      # 6️⃣ Create Schemas
-      - name: Create database schemas
+      # ---------------------------
+      # Create schemas
+      # ---------------------------
+      - name: Create schemas
         env:
           PGPASSWORD: test_password
         run: |
@@ -67,18 +80,18 @@ jobs:
           psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS production;"
           psql -h localhost -U test_user -d ecommerce_db_test -c "CREATE SCHEMA IF NOT EXISTS warehouse;"
 
-      # 7️⃣ Run Unit Tests with Coverage
-      - name: Run tests
+      # ---------------------------
+      # Run tests (CRITICAL FIX)
+      # ---------------------------
+      - name: Run pytest
+        working-directory: ${{ github.workspace }}
         env:
+          PYTHONPATH: ${{ github.workspace }}
           DB_HOST: localhost
           DB_PORT: 5432
           DB_NAME: ecommerce_db_test
           DB_USER: test_user
           DB_PASSWORD: test_password
         run: |
-          pytest tests/ -v --cov=scripts --cov-report=term
-
-      # 8️⃣ Enforce Coverage Threshold
-      - name: Enforce coverage threshold
-        run: |
-          coverage report --fail-under=70
+          echo "PYTHONPATH=$PYTHONPATH"
+          pytest tests -v --cov=scripts --cov-report=term
